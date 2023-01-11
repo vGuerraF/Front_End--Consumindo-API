@@ -35,7 +35,7 @@ export function Header({ getAll }) {
       <header className="header-home">
         <section className="header-section">
           <img src="./shuriken.png" alt="logo" height="40" width="40"></img>
-          <h2 style={{ paddingLeft: "10px" }}>PaletaFlix</h2>
+          <h2 style={{ paddingLeft: "10px" }}>PaletaShop</h2>
         </section>
         <section>
           <button className="modal-button" onClick={handleModal}>

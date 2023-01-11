@@ -38,11 +38,10 @@ export function Home() {
 
   function deletePaleta(paletaId) {
     api.deletePaleta(paletaId);
-    const newPaletaList = paletaList;
-    newPaletaList.map((paleta, index) => {
+    paletaList.map((paleta, index) => {
       if (paleta.id === paletaId) {
-        newPaletaList.splice(index, 1);
-        setPaletaList(newPaletaList);
+        paletaList.splice(index, 1);
+        setPaletaList(paletaList);
         handleModal();
       }
     });

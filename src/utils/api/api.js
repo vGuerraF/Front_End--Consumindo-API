@@ -32,4 +32,10 @@ export const api = {
     const paletaDeleted = await response.json();
     return paletaDeleted;
   },
+
+  updatePaleta: async (paletaId) => {
+    const response = await fetch(baseUrl + "/update-paleta/:" + paletaId);
+    const paletaUpdated = await response.json();
+    return paletaUpdated;
+  },
 };
