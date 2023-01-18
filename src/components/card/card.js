@@ -1,21 +1,22 @@
 import "./card.css";
 
-export function Card({ foto, descricao, preco, sabor }) {
+export function Card({ gender, protagonist, year, title }) {
   return (
     <div className="card-component">
-      <h2>{sabor}</h2>
+      <h2>{title}</h2>
       <section className="card-infos">
-        <span className="card-span">Descricao:</span>
-        <h3>{descricao}</h3>
+        <span className="card-span">Protagonist:</span>
+        <h3>{protagonist}</h3>
       </section>
       <section className="card-infos">
-        <span className="card-span">Foto:</span>
-        <h3>{foto}</h3>
+        <span className="card-span">Gender:</span>
+        <h3>{gender}</h3>
       </section>
       <section className="card-infos">
-        <span className="card-span">Preco:</span>
-        <h3>{preco}</h3>
+        <span className="card-span">Year:</span>
+        <h3>{year}</h3>
       </section>
     </div>
   );
 }
+

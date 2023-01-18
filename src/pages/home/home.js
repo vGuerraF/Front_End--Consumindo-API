@@ -26,22 +26,23 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 export function Home() {
-  const [paletaList, setPaletaList] = useState([]);
+  const [animeList, setAnimeList] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [uniquePaleta, setUniquePaleta] = useState({});
-  const [editPaleta, setEditPaleta] = useState(false);
+  const [uniqueAnime, setUniqueAnime] = useState({});
+  const [editAnime, setEditAnime] = useState(false);
 
-  async function getPaleta() {
-    const paletas = await api.getAllPaletas();
-    setPaletaList(paletas);
+  async function getAnime() {
+    const animes = await api.getAllAnimes();
+    setAnimeList(animes);
   }
 
-  function deletePaleta(paletaId) {
-    api.deletePaleta(paletaId);
-    paletaList.map((paleta, index) => {
-      if (paleta.id === paletaId) {
-        paletaList.splice(index, 1);
-        setPaletaList(paletaList);
+  function deleteAnime(animeId) {
+    api.deleteAnime(animeId);
+    const newAnimeList = animeList;
+    newAnimeList.map((anime, index) => {
+      if (anime.id === animeId) {
+        newAnimeList.splice(index, 1);
+        setAnimeList(newAnimeList);
         handleModal();
       }
     });
@@ -51,53 +52,53 @@ export function Home() {
     setModalIsOpen(!modalIsOpen);
   }
 
-  function changePaleta(event) {
+  function changeAnime(event) {
     event.preventDefault();
 
-    const updatedPaleta = {
-      id: uniquePaleta.id,
-      sabor: event.target.sabor.value,
-      descricao: event.target.descricao.value,
-      foto: event.target.foto.value,
-      preco: event.target.preco.value,
+    const updatedAnime = {
+      id: uniqueAnime.id,
+      title: event.target.title.value,
+      protagonist: event.target.protagonist.value,
+      gender: event.target.gender.value,
+      year: event.target.year.value,
       characters: [],
     };
 
-    const newPaletaList = paletaList;
-    newPaletaList.map((item, index) => {
-      if (item.id === updatedPaleta.id) {
-        newPaletaList.splice(index, 1, updatedPaleta);
-        setPaletaList(newPaletaList);
+    const newAnimeList = animeList;
+    newAnimeList.map((item, index) => {
+      if (item.id === updatedAnime.id) {
+        newAnimeList.splice(index, 1, updatedAnime);
+        setAnimeList(newAnimeList);
         handleModal();
       }
     });
-    setEditPaleta(false);
-    api.updatePaleta(updatedPaleta);
+    setEditAnime(false);
+    api.updateAnime(updatedAnime);
   }
 
   useEffect(() => {
-    getPaleta();
+    getAnime();
   }, []);
 
   return (
     <section className="home-page">
-      <Header getAll={getPaleta} />
+      <Header getAll={getAnime} />
       <div className="card-list">
-        {paletaList.map((item, index) => {
+        {animeList.map((item, index) => {
           return (
             <button
               className="button-card"
               onClick={() => {
-                setUniquePaleta(item);
+                setUniqueAnime(item);
                 handleModal();
               }}
               key={index}
             >
               <Card
-                sabor={item.sabor}
-                foto={item.foto}
-                descricao={item.descricao}
-                preco={item.preco}
+                title={item.title}
+                gender={item.gender}
+                protagonist={item.protagonist}
+                year={item.year}
               />
             </button>
           );
@@ -109,40 +110,40 @@ export function Home() {
         style={customStyles}
         contentLabel="Card details"
       >
-        {editPaleta ? (
+        {editAnime ? (
           <>
             <div className="form">
-              <form onSubmit={changePaleta} className="form-inputs">
+              <form onSubmit={changeAnime} className="form-inputs">
                 <section>
-                  <span>Sabor:</span>
+                  <span>Title:</span>
                   <input
                     type="text"
-                    name="sabor"
-                    defaultValue={uniquePaleta.sabor}
+                    name="title"
+                    defaultValue={uniqueAnime.title}
                   ></input>
                 </section>
                 <section>
-                  <span>Descricao</span>
+                  <span>Protagonist</span>
                   <input
                     type="text"
-                    name="descricao"
-                    defaultValue={uniquePaleta.descricao}
+                    name="protagonist"
+                    defaultValue={uniqueAnime.protagonist}
                   ></input>
                 </section>
                 <section>
-                  <span>Foto:</span>
+                  <span>Gender:</span>
                   <input
                     type="text"
-                    name="foto"
-                    defaultValue={uniquePaleta.foto}
+                    name="gender"
+                    defaultValue={uniqueAnime.gender}
                   ></input>
                 </section>
                 <section>
-                  <span>Preco:</span>
+                  <span>Year:</span>
                   <input
                     type="number"
-                    name="preco"
-                    defaultValue={uniquePaleta.preco}
+                    name="year"
+                    defaultValue={uniqueAnime.year}
                   ></input>
                 </section>
                 <button type="submit" className="btn-submit">
@@ -173,21 +174,21 @@ export function Home() {
                   <CgClose size={28} color="red" />
                 </button>
               </section>
-              <h2>{uniquePaleta.sabor}</h2>
-              <h3>{uniquePaleta.foto}</h3>
-              <h3>{uniquePaleta.descricao}</h3>
-              <h3>{uniquePaleta.preco}</h3>
+              <h2>{uniqueAnime.title}</h2>
+              <h3>{uniqueAnime.gender}</h3>
+              <h3>{uniqueAnime.protagonist}</h3>
+              <h3>{uniqueAnime.year}</h3>
             </section>
             <button
               onClick={() => {
-                setEditPaleta(true);
+                setEditAnime(true);
               }}
             >
               Edit
             </button>
             <button
               onClick={() => {
-                deletePaleta(uniquePaleta.id);
+                deleteAnime(uniqueAnime.id);
               }}
             >
               Delete
@@ -198,3 +199,4 @@ export function Home() {
     </section>
   );
 }
+

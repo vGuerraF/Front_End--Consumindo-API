@@ -1,41 +1,40 @@
-const baseUrl = "http://localhost:3001/paletas";
+const defaultUrl = "http://localhost:3000/animes";
 
 export const api = {
-  createPaleta: async (paleta) => {
-    const response = await fetch(baseUrl + "/create-paletas", {
+  createAnime: async (anime) => {
+    const response = await fetch(defaultUrl + "/create", {
       method: "POST",
       headers: new Headers({ "Content-Type": "application/json" }),
-      body: JSON.stringify(paleta),
+      body: JSON.stringify(anime),
     });
-    const newPaleta = await response.json();
-    return newPaleta;
+    const newAnime = await response.json();
+    return newAnime;
   },
 
-  getAllPaletas: async () => {
-    const response = await fetch(baseUrl + "/find-paletas");
-    const allPaletas = await response.json();
+  getAllAnimes: async () => {
+    const response = await fetch(defaultUrl + "/");
+    const allAnimes = await response.json();
 
-    return allPaletas;
+    return allAnimes;
   },
 
-  getPaletaById: async (paletaId) => {
-    const response = await fetch(baseUrl + "/find-paleta/:" + paletaId);
-    const paletaFinded = await response.json();
-    return paletaFinded;
-  },
-
-  deletePaleta: async (paletaId) => {
-    const response = await fetch(baseUrl + "/delete-paleta/:" + paletaId, {
+  deleteAnime: async (animeId) => {
+    const response = await fetch(defaultUrl + "/delete/" + animeId, {
       method: "DELETE",
       headers: new Headers({ "Content-Type": "application/json" }),
     });
-    const paletaDeleted = await response.json();
-    return paletaDeleted;
+    const animeDeleted = await response.json();
+    return animeDeleted;
   },
 
-  updatePaleta: async (paletaId) => {
-    const response = await fetch(baseUrl + "/update-paleta/:" + paletaId);
-    const paletaUpdated = await response.json();
-    return paletaUpdated;
+  updateAnime: async (anime) => {
+    const response = await fetch(defaultUrl + "/update", {
+      method: "PUT",
+      headers: new Headers({ "Content-Type": "application/json" }),
+      body: JSON.stringify(anime),
+    });
+
+    const animeUpdated = await response.json();
+    return animeUpdated;
   },
 };

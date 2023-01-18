@@ -2,14 +2,14 @@ import { useState } from "react";
 import { api } from "../../utils/api/api";
 
 export function Form({ getAll, handleModal }) {
-  const [newPaleta, setNewPaleta] = useState({ characters: [] });
+  const [newAnime, setNewAnime] = useState({ characters: [] });
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
     setLoading(true);
     event.preventDefault();
 
-    await api.createPaleta(newPaleta);
+    await api.createAnime(newAnime);
     await getAll();
     setLoading(false);
     handleModal();
@@ -23,42 +23,42 @@ export function Form({ getAll, handleModal }) {
         <div className="form">
           <form onSubmit={handleSubmit} className="form-inputs">
             <section>
-              <span>Sabor:</span>
+              <span>Title:</span>
               <input
                 type="text"
-                name="sabor"
+                name="title"
                 onChange={(event) => {
-                  setNewPaleta({ ...newPaleta, sabor: event.target.value });
+                  setNewAnime({ ...newAnime, title: event.target.value });
                 }}
               ></input>
             </section>
             <section>
-              <span>Descricao</span>
+              <span>Protagonist</span>
               <input
                 type="text"
-                name="descricao"
+                name="protagonist"
                 onChange={(event) => {
-                  setNewPaleta({ ...newPaleta, descricao: event.target.value });
+                  setNewAnime({ ...newAnime, protagonist: event.target.value });
                 }}
               ></input>
             </section>
             <section>
-              <span>Foto:</span>
+              <span>Gender:</span>
               <input
                 type="text"
-                name="foto"
+                name="gender"
                 onChange={(event) => {
-                  setNewPaleta({ ...newPaleta, foto: event.target.value });
+                  setNewAnime({ ...newAnime, gender: event.target.value });
                 }}
               ></input>
             </section>
             <section>
-              <span>Preco:</span>
+              <span>Year:</span>
               <input
                 type="number"
-                name="preco"
+                name="year"
                 onChange={(event) => {
-                  setNewPaleta({ ...newPaleta, preco: event.target.value });
+                  setNewAnime({ ...newAnime, year: event.target.value });
                 }}
               ></input>
             </section>
