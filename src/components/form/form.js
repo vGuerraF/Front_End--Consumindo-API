@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api } from "../../utils/api/api";
+import "./form.css";
 
 export function Form({ getAll, handleModal }) {
   const [newAnime, setNewAnime] = useState({ characters: [] });
@@ -71,4 +72,3 @@ export function Form({ getAll, handleModal }) {
     </>
   );
 }
-
